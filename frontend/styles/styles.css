@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../fonts/TitilliumWeb-SemiBold.ttf');
+  font-display: swap;
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
+  border: 1rem solid #ff4b00;
+}
+
+#root,
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1,
+h2,
+h3 {
+  color: #93005a;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+h3 {
+  margin-bottom: 0.85rem;
+}
+
+#root {
+  width: 100%;
+  overflow-y: auto;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+header,
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+footer>a {
+  font-size: 0.85em;
+  color: #ff4b00;
+}
+
+label {
+  min-width: 200px;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+label>span {
+  min-width: 140px;
+}
+
+#todoForm, #todos {
+  padding: 1.2rem;
+  margin-top: 1.5rem;
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  width: 100%;
+}
+
+ul {
+  margin-bottom: 0.5rem;
+}
+
+#mp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error {
+  color: crimson;
+  font-size: 0.85em;
+  height: 20px;
+  margin-top: -4px;
+  align-self: flex-end;
+}
