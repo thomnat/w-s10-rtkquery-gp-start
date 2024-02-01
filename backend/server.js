@@ -33,9 +33,6 @@ const todos = [
 
 server.get('/api/todos', async (req, res, next) => {
   await delay()
-  if (shouldRequestFail()) {
-    return next({ message: 'Could not get todos, try again!' })
-  }
   res.json(todos)
 })
 
