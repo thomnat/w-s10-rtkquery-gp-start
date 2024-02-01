@@ -5,12 +5,21 @@ const Yup = require('yup')
 
 const PORT = process.env.PORT || 9009
 
+// ❗ if not ideal, responses will be slow and will fail one out of three times
+const ideal = true
+
+const shouldRequestFail = () => !ideal && !Math.floor(Math.random() * 3)
+const delay = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, ideal ? 0 : 1000)
+  })
+}
+
 const server = express()
-
 server.use(express.json())
-
 server.use(express.static(path.join(__dirname, '../dist')))
-
 server.use(cors())
 
 let id = 1
@@ -22,11 +31,12 @@ const todos = [
   { id: getNextId(), label: 'Dishes', complete: false },
 ]
 
-server.get('/api/todos', (req, res, next) => {
-  // return next({ status: 500, message: 'something bad' })
-  setTimeout(() => {
-    res.json(todos)
-  }, 1000)
+server.get('/api/todos', async (req, res, next) => {
+  await delay()
+  if (shouldRequestFail()) {
+    return next({ message: 'Could not get todos, try again!' })
+  }
+  res.json(todos)
 })
 
 const putSchema = Yup.object().shape({
@@ -42,7 +52,10 @@ const putSchema = Yup.object().shape({
   )
 
 server.put('/api/todos/:id', async (req, res, next) => {
-  if (Math.floor(Math.random() * 2) % 2) return next({ status: 500, message: 'Could not update todo, try again!' })
+  await delay()
+  if (shouldRequestFail()) {
+    return next({ message: 'Could not update todo, try again!' })
+  }
   try {
     const todo = todos.find(td => td.id == req.params.id)
     if (!todo) return next({ status: 404, message: 'Todo not found' })
@@ -60,7 +73,10 @@ const postSchema = Yup.object().shape({
   complete: Yup.boolean().required('Provide a valid complete'),
 })
 server.post('/api/todos', async (req, res, next) => {
-  if (Math.floor(Math.random() * 2) % 2) return next({ status: 500, message: 'Could not create todo, try again!' })
+  await delay()
+  if (shouldRequestFail()) {
+    return next({ message: 'Could not create todo, try again!' })
+  }
   try {
     const { label, complete } = await postSchema.validate(req.body, { stripUnknown: true })
     const newTodo = { id: getNextId(), label, complete }
