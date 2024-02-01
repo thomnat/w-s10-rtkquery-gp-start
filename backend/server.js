@@ -5,7 +5,7 @@ const Yup = require('yup')
 
 const PORT = process.env.PORT || 9009
 
-const glitchy = true // ❗ mutations will fail half the time
+const glitchy = false // ❗ mutations will fail half the time
 const slow = false // ❗ responses will take a full second
 
 const shouldRequestFail = () => glitchy && Math.floor(Math.random() * 2)
