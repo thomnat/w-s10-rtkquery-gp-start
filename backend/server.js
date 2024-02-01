@@ -5,10 +5,10 @@ const Yup = require('yup')
 
 const PORT = process.env.PORT || 9009
 
-const glitchy = false // ❗ responses will fail one out of three times
+const glitchy = true // ❗ mutations will fail half the time
 const slow = false // ❗ responses will take a full second
 
-const shouldRequestFail = () => glitchy && !Math.floor(Math.random() * 3)
+const shouldRequestFail = () => glitchy && Math.floor(Math.random() * 2)
 const delay = () => {
   return new Promise(resolve => {
     setTimeout(() => {
