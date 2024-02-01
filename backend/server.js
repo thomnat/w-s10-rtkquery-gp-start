@@ -5,15 +5,15 @@ const Yup = require('yup')
 
 const PORT = process.env.PORT || 9009
 
-// ❗ if not ideal, responses will be slow and will fail one out of three times
-const ideal = true
+const glitchy = false // ❗ responses will fail one out of three times
+const slow = false // ❗ responses will take a full second
 
-const shouldRequestFail = () => !ideal && !Math.floor(Math.random() * 3)
+const shouldRequestFail = () => glitchy && !Math.floor(Math.random() * 3)
 const delay = () => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve()
-    }, ideal ? 0 : 1000)
+    }, slow ? 1000 : 0)
   })
 }
 
