@@ -1,5 +1,5 @@
 {
-  "name": "react-project",
+  "name": "rtk-query-gp-start",
   "version": "0.0.1",
   "scripts": {
     "dev": "fkill :9009 :3003 -f -s && concurrently \"npm:backend\" \"npm:frontend\"",
